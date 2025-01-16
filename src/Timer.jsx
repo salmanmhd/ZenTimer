@@ -26,37 +26,45 @@ function Timer() {
   }, [isStart, sec, min]);
 
   return (
-    <>
-      {isStart ? (
-        <div></div>
-      ) : (
-        <div id='suggestions' className='absolute z-10 top-20 '>
-          <TimerSuggestions setSec={setSec} setMin={setMin} />
-        </div>
-      )}
-
-      <div className='flex justify-between absolute z-10 w-full '>
-        <Button
-          text={`${isStart ? 'Pause' : 'Start'}`}
-          onPress={() => {
-            setStart((start) => !start);
-          }}
-        />
-        <Button
-          text='Reset'
-          onPress={() => {
-            setMin(0);
-            setSec(12);
-            setStart(false);
-          }}
-        />
+    <div className=' flex items-center flex-col justify-center h-screen w-screen'>
+      <div className={`  relative z-10  ${isStart ? `invisible` : ``} `}>
+        <TimerSuggestions setSec={setSec} setMin={setMin} />
       </div>
-      <div className='text-custom_white relative z-10   w-11/12  text-[550px] font-jost  '>
+
+      <div className='text-custom_white h-[550px] flex justify-center items-center    w-11/12  text-[550px]   '>
         {`${min < 10 ? `0${min}` : `${min}`}:${
           sec < 10 ? `0${sec}` : `${sec}`
         }`}
       </div>
-    </>
+
+      <div className='flex justify-center space-x-10   w-full '>
+        {isStart ? (
+          <Button
+            text={`Pause`}
+            onPress={() => {
+              setStart((start) => !start);
+            }}
+          />
+        ) : (
+          <>
+            <Button
+              text={`${isStart ? 'Pause' : 'Start'}`}
+              onPress={() => {
+                setStart((start) => !start);
+              }}
+            />
+            <Button
+              text='Reset'
+              onPress={() => {
+                setMin(0);
+                setSec(12);
+                setStart(false);
+              }}
+            />
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
