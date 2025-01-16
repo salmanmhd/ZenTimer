@@ -4,13 +4,17 @@ import TimerSuggestions from './TimerSuggestions';
 
 function Timer() {
   const [isStart, setStart] = useState(false);
-  const [sec, setSec] = useState(55);
-  const [min, setMin] = useState(55);
+  const [sec, setSec] = useState(10);
+  const [min, setMin] = useState(0);
 
   useEffect(() => {
     let timer;
     if (isStart) {
       timer = setInterval(() => {
+        if (sec === 0 && min === 0) {
+          clearInterval(timer);
+          isStart(false);
+        }
         setSec((prevSec) => prevSec - 1);
         if (sec === 0) {
           setMin((prevMin) => prevMin - 1);
@@ -41,13 +45,13 @@ function Timer() {
         <Button
           text='Reset'
           onPress={() => {
-            setMin(35);
-            setSec(35);
+            setMin(0);
+            setSec(12);
             setStart(false);
           }}
         />
       </div>
-      <div className='text-custom_white   text-[550px] font-jost  '>
+      <div className='text-custom_white relative z-10   w-11/12  text-[550px] font-jost  '>
         {`${min < 10 ? `0${min}` : `${min}`}:${
           sec < 10 ? `0${sec}` : `${sec}`
         }`}

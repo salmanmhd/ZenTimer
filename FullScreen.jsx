@@ -4,16 +4,10 @@ import { Maximize, Minimize } from 'lucide-react';
 function FullScreen() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   function toggleFullscreen() {
-    if (isFullscreen) {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-    } else {
-      const element = document.documentElement;
-      if (element.requestFullscreen) {
-        element.requestFullscreen();
-      }
-    }
+    isFullscreen
+      ? document.exitFullscreen?.()
+      : document.documentElement.requestFullscreen?.();
+
     setIsFullscreen(!isFullscreen);
   }
 
